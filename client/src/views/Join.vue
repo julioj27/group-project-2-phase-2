@@ -16,7 +16,7 @@
 import socket from '../config/socket'
 
 export default {
-  name: 'Login',
+  name: 'Join',
   data () {
     return {
       username: '',

@@ -1,30 +1,40 @@
 const rooms = []
 
-// join user
+// add room
 function addRoom(username, roomname) {
     const newroom = { 
         room: roomname,
         RoomMaster: username,
-        opponent: ''
+        opponent: '',
+        isFinish: false
     }
     const indexRoom = rooms.findIndex(room => room.room === roomname)
     if (indexRoom !== -1) {
         rooms[indexRoom] = newroom
+        rooms.push(newroom)
+        return newroom
+    } else {
+        rooms.push(newroom)
+        return newroom
     }
-    rooms.push(newroom)
-    console.log(rooms, '<<<<<')
-
-    return newroom
 }
 
+// join room
 function joinRoom(username, roomname) {
     const newroom = rooms.find(room => room.room === roomname)
     if (newroom !== undefined) {
         newroom.opponent = username
         const indexRoom = rooms.findIndex(room => room.room === roomname)
         rooms[indexRoom] = newroom
+        return newroom
+    } else {
+        const error = {
+            name: 'error',
+            msg: 'room not found'
+        }
+        return error
     }
-    return newroom
+    
 }
 
 function getCurrentRoom(roomname) {
