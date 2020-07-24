@@ -22,7 +22,7 @@
         <h1>Opponent</h1>
         <p>{{ opponent }}</p>
       </div>
-      <div v-if="isStart===false">
+      <div v-if="isStart===false&&opponent">
         <button @click="changeStatus(true)">mulai</button>
       </div>
       <div class="container" v-if="isFinish===true">
