@@ -12,7 +12,7 @@ function addRoom(username, roomname) {
         rooms[indexRoom] = newroom
     }
     rooms.push(newroom)
-    console.log(rooms)
+    console.log(rooms, '<<<<<')
 
     return newroom
 }
