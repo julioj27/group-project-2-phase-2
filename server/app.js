@@ -14,12 +14,18 @@ io.on('connection', (socket) => {
         const roomNew = joinRoom(newUser.name, newUser.room)
         socket.join(userNew.room)
         io.to(userNew.room).emit('join', roomNew)
+        socket.on('send-answer', (payload) => {
+            io.to(userNew.room).emit('listen-answer', payload)
+        })
     })
     socket.on('add-room', (newUser) => {
         const userNew = userJoin(socket.id, newUser.name, newUser.room)
         const roomNew = addRoom(newUser.name, newUser.room)
         socket.join(userNew.room)
         io.to(userNew.room).emit('add', roomNew)
+        socket.on('send-answer', (payload) => {
+            io.to(userNew.room).emit('listen-answer', payload)
+        })
     })
 })
 
