@@ -4,7 +4,7 @@ const io = require('socket.io')(server)
 const PORT = process.env.PORT || 3000
 const cors = require('cors')
 const { userJoin } = require('./utils/users')
-const { addRoom, joinRoom } = require('./utils/rooms')
+const { addRoom, joinRoom, getCurrentRoom } = require('./utils/rooms')
 
 app.use(cors())
 
@@ -12,7 +12,6 @@ io.on('connection', (socket) => {
     socket.on('join-room', (newUser) => {
         const userNew = userJoin(socket.id, newUser.name, newUser.room)
         const roomNew = joinRoom(newUser.name, newUser.room)
-        console.log(roomNew)
         socket.join(userNew.room)
         io.to(userNew.room).emit('join', roomNew)
     })
