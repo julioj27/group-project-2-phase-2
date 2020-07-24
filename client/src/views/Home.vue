@@ -88,6 +88,9 @@ export default {
       }
       console.log(data)
     })
+    socket.on('listen-winner', (data) => {
+      this.winner = data.winner
+    })
   },
   computed: {
     finalAnswer: function () {
@@ -108,6 +111,7 @@ export default {
         } else if (this.myAnswer === 'paper') {
           this.winner = this.opponentAnswer === 'scissor' ? this.opponent : this.roomMaster
         }
+        socket.emit('send-winner', { winner: this.winner })
         setTimeout(() => {
           this.myAnswer = ''
           this.opponentAnswer = ''

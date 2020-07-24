@@ -17,6 +17,9 @@ io.on('connection', (socket) => {
         socket.on('send-answer', (payload) => {
             io.to(userNew.room).emit('listen-answer', payload)
         })
+        socket.on('send-winner', (payload) => {
+            io.to(userNew.room).emit('listen-winner', payload)
+        })
     })
     socket.on('add-room', (newUser) => {
         const userNew = userJoin(socket.id, newUser.name, newUser.room)
@@ -25,6 +28,9 @@ io.on('connection', (socket) => {
         io.to(userNew.room).emit('add', roomNew)
         socket.on('send-answer', (payload) => {
             io.to(userNew.room).emit('listen-answer', payload)
+        })
+        socket.on('send-winner', (payload) => {
+            io.to(userNew.room).emit('listen-winner', payload)
         })
     })
 })
