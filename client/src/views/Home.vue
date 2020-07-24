@@ -1,18 +1,53 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Navigation></Navigation>
+    <div class="container">
+      <h1>Room</h1>
+      <p>{{ roomName }}</p>
+    </div>
+    <div class="container">
+      <h1>Room Master</h1>
+      <p>{{ roomMaster }}</p>
+    </div>
+    <div class="container">
+      <h1>Opponent</h1>
+      <p>{{ opponent }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import socket from '../config/socket'
+import Navigation from '../components/Navigation'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Navigation
+  },
+  data () {
+    return {
+      username: localStorage.username,
+      roomName: '',
+      roomMaster: '',
+      opponent: ''
+    }
+  },
+  methods: {
+  },
+  mounted () {
+    socket.on('join', (data) => {
+      console.log(data)
+      this.roomName = data.room
+      this.roomMaster = data.RoomMaster
+      this.opponent = data.opponent
+    })
+    socket.on('add', (data) => {
+      console.log(data)
+      this.roomName = data.room
+      this.roomMaster = data.RoomMaster
+      this.opponent = data.opponent
+    })
   }
 }
 </script>
